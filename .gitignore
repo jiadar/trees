@@ -1,6 +1,9 @@
+bin/
+tgz/
 .#*
 tmp/
 log/
+.timestamp
 .floo
 .flooignore
 .classpath
