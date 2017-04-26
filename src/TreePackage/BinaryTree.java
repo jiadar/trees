@@ -1,7 +1,6 @@
 package TreePackage;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import StackAndQueuePackage.*;
 
 /**
  * A class that implements the ADT binary tree.
