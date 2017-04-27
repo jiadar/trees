@@ -1,0 +1,520 @@
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize) 
+(global-hl-line-mode 1)
+(set-face-background 'hl-line "midnight blue")
+(scroll-bar-mode -1)
+(setq jiadar-makescript "./build.linux")
+(display-battery-mode 1)
+(tool-bar-mode 0)
+(setq next-line-add-newlines nil)
+(setq-default truncate-lines t)
+(setq truncate-partial-width-windows nil)
+(winner-mode 1) ;"C-c <left>" and "C-c <right>" undo and re-do window changes.
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
+ '(auto-save-interval 0)
+ '(auto-save-list-file-prefix nil)
+ '(auto-save-timeout 0)
+ '(auto-show-mode t t)
+ '(delete-auto-save-files nil)
+ '(delete-old-versions (quote other))
+ '(eclim-eclipse-dirs (quote ("/Applications/Eclipse.app/Contents/Eclipse")))
+ '(eclim-executable "/Applications/Eclipse.app/Contents/Eclipse/eclim")
+ '(fill-column 85)
+ '(imenu-auto-rescan t)
+ '(imenu-auto-rescan-maxout 500000)
+ '(kept-new-versions 5)
+ '(kept-old-versions 5)
+ '(make-backup-file-name-function (quote ignore))
+ '(make-backup-files nil)
+ '(mouse-wheel-follow-mouse nil)
+ '(mouse-wheel-progressive-speed nil)
+ '(mouse-wheel-scroll-amount (quote (15)))
+ '(package-selected-packages
+   (quote
+    (smart-tab eclim floobits ace-window robe inf-ruby company-emacs-eclim)))
+ '(version-control nil))
+
+(defun jiadar-never-split-a-window nil)
+(setq split-window-preferred-function 'jiadar-never-split-a-window)
+(add-to-list 'default-frame-alist '(font . "Liberation Mono-12.0"))
+(set-face-attribute 'default t :font "Liberation Mono-12.0")
+(set-face-attribute 'font-lock-builtin-face nil :foreground "#DAB98F")
+(set-face-attribute 'font-lock-comment-face nil :foreground "gray50")
+(set-face-attribute 'font-lock-constant-face nil :foreground "olive drab")
+(set-face-attribute 'font-lock-doc-face nil :foreground "gray50")
+(set-face-attribute 'font-lock-function-name-face nil :foreground "burlywood3")
+(set-face-attribute 'font-lock-keyword-face nil :foreground "DarkGoldenrod3")
+(set-face-attribute 'font-lock-string-face nil :foreground "olive drab")
+(set-face-attribute 'font-lock-type-face nil :foreground "burlywood3")
+(set-face-attribute 'font-lock-variable-name-face nil :foreground "burlywood3")
+
+
+;; java setup
+
+(add-hook 'java-mode-hook (lambda ()
+			    (setq c-basic-offset 3)))
+
+(add-hook 'java-mode-hook (lambda ()
+                            (setq c-basic-offset 3
+                                  tab-width 3
+                                  indent-tabs-mode nil)))
+
+(defun jiadar-big-fun-style-hook ()
+  (setq-default indent-tabs-mode nil)
+  (setq dabbrev-case-replace t)
+  (setq dabbrev-case-fold-search t)
+  (setq dabbrev-upcase-means-case-search t)
+  (abbrev-mode 1)
+  (setq tab-width 3
+	indent-tabs-mode nil)
+)
+
+(add-hook 'java-mode-hook 'jiadar-big-fun-style-hook)
+(add-hook 'ruby-mode-hook 'jiadar-big-fun-style-hook)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/emacs-eclim")
+
+
+
+(require 'company)
+(require 'eclim)
+(require 'company-emacs-eclim)
+
+(company-emacs-eclim-setup)
+(global-company-mode t)
+(global-set-key (kbd "C-c c") 'company-complete)
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.5)
+(help-at-pt-set-timer)
+
+; using company instead
+;(require 'auto-complete-config)
+;(ac-config-default)
+;(require 'ac-emacs-eclim-source)
+;(ac-emacs-eclim-config)
+
+(define-key eclim-mode-map (kbd "C-c C-c") 'eclim-problems-correct)
+(add-hook 'java-mode-hook 'eclim-mode)
+(setq eclimd-default-workspace "/Users/ross/Documents/workspace")
+(setq eclimd-wait-for-process nil)
+
+
+(defun post-load-stuff ()
+  (interactive)
+  (menu-bar-mode -1)
+  (set-foreground-color "burlywood3")
+  (set-background-color "#161616")
+  (set-cursor-color "#40FF40")
+  )
+(add-hook 'window-setup-hook 'post-load-stuff t)
+
+
+(define-key global-map "\e " 'set-mark-command)
+(define-key global-map "\eq" 'append-as-kill)
+(define-key global-map "\ez" 'kill-region)
+(define-key global-map [M-up] 'previous-blank-line)
+(define-key global-map [M-down] 'next-blank-line)
+(define-key global-map [M-right] 'forward-word)
+(define-key global-map [M-left] 'backward-word)
+
+(define-key global-map "\e:" 'View-back-to-mark)
+(define-key global-map "\e;" 'exchange-point-and-mark)
+
+(define-key global-map [f9] 'first-error)
+(define-key global-map [f10] 'previous-error)
+(define-key global-map [f11] 'next-error)
+
+(define-key global-map "\en" 'next-error)
+(define-key global-map "\eN" 'previous-error)
+
+(define-key global-map "\eg" 'goto-line)
+(define-key global-map "\ej" 'imenu)
+
+                                        ; Editting
+(define-key global-map "" 'copy-region-as-kill)
+(define-key global-map "" 'nil)
+(define-key global-map "" 'rotate-yank-pointer)
+(define-key global-map "" 'copy-region-as-kill)
+(define-key global-map "" 'yank)
+(define-key global-map "" 'undo)
+(define-key global-map "" 'move-end-of-line)
+(define-key global-map "\eu" 'undo)
+(define-key global-map "\e6" 'upcase-word)
+(define-key global-map "\e^" 'captilize-word)
+(define-key global-map "\e." 'fill-paragraph)
+
+(require 'ido)
+(ido-mode t)
+
+(define-key global-map "\ef" 'find-file)
+(define-key global-map "\eF" 'find-file-other-window)
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'web-mode-hook 'robe-mode)
+(setq web-mode-markup-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-current-column-highlight t)
+
+(global-auto-revert-mode t)
+
+(set-face-background 'vertical-border "gray50")
+(set-face-foreground 'vertical-border (face-background 'vertical-border))
+
+;; need to fix: web-mode, tab spacing
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-preview ((t (:background "black" :foreground "red"))))
+ '(company-preview-common ((t (:foreground "red"))))
+ '(company-preview-search ((t (:inherit company-preview))))
+ '(company-scrollbar-bg ((t (:background "brightwhite"))))
+ '(company-scrollbar-fg ((t (:background "red"))))
+ '(company-template-field ((t (:background "magenta" :foreground "black"))))
+ '(company-tooltip ((t (:background "brightwhite" :foreground "black"))))
+ '(company-tooltip-annotation ((t (:background "brightwhite" :foreground "black"))))
+ '(company-tooltip-annotation-selection ((t (:background "color-253"))))
+ '(company-tooltip-common ((t (:background "brightwhite" :foreground "red"))))
+ '(company-tooltip-common-selection ((t (:background "color-253" :foreground "red"))))
+ '(company-tooltip-mouse ((t (:foreground "black"))))
+ '(company-tooltip-search ((t (:background "brightwhite" :foreground "black"))))
+ '(company-tooltip-selection ((t (:background "color-253" :foreground
+                                              "black"))))
+)
+
+(desktop-save-mode 1)
+(electric-pair-mode 1)
+
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
+(setq term-term-name "xterm") ; bold faced lie
+(defun j/configure-term ()
+    (interactive)
+    (setq truncate-lines 1)
+    (define-key term-raw-map (kbd "C-y") 'term-paste)
+    (add-hook 'term-mode-hook 'j/configure-term t))
+
+(setq ring-bell-function 'ignore)
+
+(defun insert-timeofday ()
+  (interactive "*")
+  (insert (format-time-string "---------------- %a, %d %b %y: %I:%M%p")))
+
+(defun load-log ()
+  (interactive)
+  (find-file jiadar-log-file)
+  (if (boundp 'longlines-mode) ()
+    (longlines-mode 1)
+    (longlines-show-hard-newlines))
+  (if (equal longlines-mode t) ()
+    (longlines-mode 1)
+    (longlines-show-hard-newlines))
+  (end-of-buffer)
+  (newline-and-indent)
+  (insert-timeofday)
+  (newline-and-indent)
+  (newline-and-indent)
+  (end-of-buffer)
+  )
+
+(define-key global-map "\eT" 'load-log)
+
+(display-time)
+
+(setq next-line-add-newlines nil)
+(setq-default truncate-lines t)
+(setq truncate-partial-width-windows nil)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/ace-window")
+
+(require 'avy)
+(require 'ace-window)
+
+(global-set-key (kbd "C-x o") 'ace-window)
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+
+(global-set-key (kbd "C-x O") 'previous-multiframe-window)
+
+(progn
+  (require 'windmove)
+  (windmove-default-keybindings)
+  (setq windmove-wrap-around t )
+  )
+
+(defadvice switch-to-buffer (before save-buffer-now activate)
+  (when buffer-file-name (save-buffer)))
+(defadvice other-window (before other-window-now activate)
+  (when buffer-file-name (save-buffer)))
+(defadvice windmove-up (before other-window-now activate)
+  (when buffer-file-name (save-buffer)))
+(defadvice windmove-down (before other-window-now activate)
+  (when buffer-file-name (save-buffer)))
+(defadvice windmove-left (before other-window-now activate)
+  (when buffer-file-name (save-buffer)))
+(defadvice windmove-right (before other-window-now activate)
+  (when buffer-file-name (save-buffer)))
+
+(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(setq ibuffer-default-sorting-mode 'major-mode)
+(add-hook 'ibuffer-mode-hook (lambda () (ibuffer-auto-mode 1)))
+
+(defun jiadar-ibuffer-mode-hook ()
+  (local-set-key (kbd "RET") 'ibuffer-visit-buffer-other-window))
+(add-hook 'ibuffer-mode-hook 'jiadar-ibuffer-mode-hook)
+(global-set-key [f9] 'ibuffer)
+
+(setq ibuffer-saved-filter-groups
+      '(("dropin"
+         ("Site" (or (filename . "application")
+                     (filename . "config.rb")
+                     (filename . "routes.rb")))
+         ("Models" (filename . "models"))
+         ("Controllers" (filename . "controllers"))
+         ("Member Views" (filename . "views/members"))
+         ("Passes Views" (filename . "views/passes"))
+         ("Gym Views" (filename . "views/gyms"))
+         ("Session Views" (filename . "views/sessions"))
+         ("Shared Views" (filename . "views/shared"))
+         ("Waiver Views" (filename . "views/waivers"))         
+         ("Landing Views" (filename . "views/landing"))         
+         ("Helpers" (filename . "helpers"))
+         ("Fixtures" (filename . "fixtures"))
+         ("Ruby" (filename . "rb$"))
+         ("ERB" (filename . "html.erb$"))
+         )))
+
+(add-hook 'ibuffer-mode-hook
+	  '(lambda ()
+	     (ibuffer-switch-to-saved-filter-groups "dropin")))
+(setq ibuffer-expert t)
+
+(defun ibuffer-advance-motion (direction)
+  (forward-line direction)
+  (beginning-of-line)
+  (if (not (get-text-property (point) 'ibuffer-filter-group-name))
+      t
+    (ibuffer-skip-properties '(ibuffer-filter-group-name)
+                             direction)
+    nil))
+
+(defun ibuffer-previous-line (&optional arg)
+  "Move backwards ARG lines, wrapping around the list if necessary."
+  (interactive "P")
+  (or arg (setq arg 1))
+  (let (err1 err2)
+    (while (> arg 0)
+      (cl-decf arg)
+      (setq err1 (ibuffer-advance-motion -1)
+            err2 (if (not (get-text-property (point) 'ibuffer-title)) 
+                     t
+                   (goto-char (point-max))
+                   (beginning-of-line)
+                   (ibuffer-skip-properties '(ibuffer-summary 
+                                              ibuffer-filter-group-name) 
+                                            -1)
+                   nil)))
+    (and err1 err2)))
+
+(defun ibuffer-next-line (&optional arg)
+  "Move forward ARG lines, wrapping around the list if necessary."
+  (interactive "P")
+  (or arg (setq arg 1))
+  (let (err1 err2)
+    (while (> arg 0)
+      (cl-decf arg)
+      (setq err1 (ibuffer-advance-motion 1)
+            err2 (if (not (get-text-property (point) 'ibuffer-summary)) 
+                     t
+                   (goto-char (point-min))
+                   (beginning-of-line)
+                   (ibuffer-skip-properties '(ibuffer-summary 
+                                              ibuffer-filter-group-name
+                                              ibuffer-title)
+                                            1)
+                   nil)))
+    (and err1 err2)))
+
+(defun ibuffer-next-header ()
+  (interactive)
+  (while (ibuffer-next-line)))
+
+(defun ibuffer-previous-header ()
+  (interactive)
+  (while (ibuffer-previous-line)))
+
+(define-key ibuffer-mode-map (kbd "<up>") 'ibuffer-previous-line)
+(define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-next-line)
+(define-key ibuffer-mode-map (kbd "<right>") 'ibuffer-previous-header)
+(define-key ibuffer-mode-map (kbd "<left>") 'ibuffer-next-header)
+
+(add-to-list 'load-path "/Users/ross/.emacs.d/lisp/neotree")
+(require 'neotree)
+
+(defun ibuffer-show ()
+  (interactive)
+  (let ((currentwindow (selected-window)))
+    (neo-global--select-window)
+    (set-window-dedicated-p (selected-window) nil)
+    (setq ibw (get-buffer "*Ibuffer*"))
+    (switch-to-buffer ibw)
+    (set-window-dedicated-p (selected-window) t)))
+
+(defun neotree-toggle-with-ibuffer ()
+  "Toggle show the NeoTree window."
+  (interactive)
+  (if (neo-global--window-exists-p)
+      (ibuffer-show)
+    (neo-global--select-window)
+    (set-window-dedicated-p (selected-window) nil)
+    (neotree-show)
+    (set-window-dedicated-p (selected-window) t)))
+
+(global-set-key [f8] 'neotree-toggle-with-ibuffer)
+(setq neo-smart-open t)
+
+(setq jiadar-todo-file "/Users/ross/work/todo.txt")
+(setq jiadar-log-file "/Users/ross/work/log.txt")
+
+(defun load-todo ()
+  (interactive)
+  (find-file jiadar-todo-file))
+(define-key global-map "\et" 'load-todo)
+
+(defun insert-timeofday ()
+   (interactive "*")
+   (insert (format-time-string "---------------- %a, %d %b %y: %I:%M%p")))
+
+(defun load-log ()
+  (interactive)
+  (find-file jiadar-log-file)
+  (if (boundp 'longlines-mode) ()
+    (longlines-mode 1)
+    (longlines-show-hard-newlines))
+  (if (equal longlines-mode t) ()
+    (longlines-mode 1)
+    (longlines-show-hard-newlines))
+  (end-of-buffer)
+  (newline-and-indent)
+  (insert-timeofday)
+  (newline-and-indent)
+  (newline-and-indent)
+  (end-of-buffer)
+)
+(define-key global-map "\eT" 'load-log)
+
+(make-face 'font-lock-fixme-face)
+(make-face 'font-lock-note-face)
+(modify-face 'font-lock-fixme-face "Red" nil nil t nil t nil nil)
+(modify-face 'font-lock-note-face "Dark Green" nil nil t nil t nil nil)
+
+(mapc (lambda (mode)
+        (font-lock-add-keywords
+         mode
+         '(
+           ("\\<\\(TODO\\)" 0 'font-lock-fixme-face prepend)
+           ("\\<\\(NOTE\\)" 0 'font-lock-note-face prepend)
+           )'end))
+      '(html-mode nxml-mode web-mode ruby-mode))
+
+(global-set-key [f11] 'shrink-window)
+(global-set-key [f12] 'enlarge-window)
+(global-set-key (kbd "C-c l") 'linum-mode)
+(setq linum-format "%d ")
+
+;; be able to auto-make and run the build with Esc-M
+
+(require 'compile)
+(setq compilation-directory-locked nil)
+
+(defun find-project-directory-recursive ()
+  (interactive)
+  (if (file-exists-p jiadar-makescript) t
+      (cd "../")
+      (find-project-directory-recursive)))
+
+(defun find-project-directory ()
+  "Find the project directory."
+  (interactive)
+  (setq find-project-from-directory default-directory)
+  (switch-to-buffer-other-window "*compilation*")
+  (if compilation-directory-locked (cd last-compilation-directory)
+  (cd find-project-from-directory)
+  (find-project-directory-recursive)
+  (setq last-compilation-directory default-directory)))
+
+(defun make-without-asking ()
+  "Make the current build."
+  (interactive)
+  (save-buffer)
+  (let ((codewindow (selected-window)))
+    (if (find-project-directory) (compile jiadar-makescript))
+    (select-window codewindow)))
+
+(define-key global-map "\em" 'make-without-asking)
+
+(require 'smart-tab)
+(global-smart-tab-mode 1)
+
+(defun toggle-window-dedication (&optional window)
+  (interactive)
+  (let ((window (or window (get-buffer-window))))
+    (set-window-dedicated-p window (not (window-dedicated-p window)))))
+
+(global-set-key (kbd "C-x d") 'toggle-window-dedication)
+
+(defun undedicate-window (&optional window)
+  (interactive)
+  (set-window-dedicated-p (or window (get-buffer-window)) nil))
+
+;; Removing annoying dedicated buffer nonsense
+(defun switch-to-buffer! (buffer-or-name &optional norecord force-same-window)
+  "Like switch-to-buffer but works for dedicated buffers \(though
+it will ask first)."
+  (interactive
+   (list (read-buffer-to-switch "Switch to buffer: ") nil 'force-same-window))
+  (when (and (window-dedicated-p (get-buffer-window))
+             (yes-or-no-p "This window is dedicated, undedicate it? "))
+    (undedicate-window))
+  (switch-to-buffer buffer-or-name norecord force-same-window))
+
+;; set up the initial windows
+;; for  tmate use 37, for otherwise use 50
+
+(split-window-vertically 37)
+(other-window 1)
+(multi-term)
+(shrink-window-if-larger-than-buffer)
+(rename-buffer "shell")
+(set-window-dedicated-p (selected-window) t)
+(other-window 1)
+(split-window-horizontally)
+(ibuffer)
+(neotree-toggle)
+(other-window 3)
+;;(find-file "/Users/ross/work/todo.org")
+
+
+ 

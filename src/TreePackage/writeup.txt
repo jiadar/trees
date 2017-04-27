@@ -1,0 +1,12 @@
+
+I tried to write all the tree stuff from scratch but didn't have time, so I scrapped it.
+Spent about a day on that. Learned a lot, so not wasted. 
+
+Spent probably another day on the remaining implementation and test, most of this time was
+dealing with generic type foo.
+
+As far as I know, it all works.
+
+Meanwhile... wrote 500+ lines of emacs lisp that has autocomplete, syntax checking, etc for java
+along with other things. The emacs lisp is kind of a dark, lost art. (unfortunately) ...
+But why program something useful when you can hack your editor.
