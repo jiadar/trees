@@ -22,16 +22,16 @@ public class Main {
 
       System.out.println(dict.toString());
       
-      String ph = dict.remove("Joe");
-      System.out.println("Removed Joe's # " + ph);
+      //String ph = dict.remove("Joe");
+      //System.out.println("Removed Joe's # " + ph);
 
-      System.out.println(dict.toString());
+      //System.out.println(dict.toString());
 
-      boolean c = dict.contains("Ross");
-      System.out.println("Dictionary contains Ross: " + c);
+      boolean c = dict.contains("Hunter");
+      System.out.println("Dictionary contains Hunter: " + c);
       
-      ph = dict.getValue("Steven");
-      System.out.println("Looked up Steven's # " + ph);
+      //ph = dict.getValue("Steven");
+      //System.out.println("Looked up Steven's # " + ph);
    }
    
    private static void doRemoveTest() {
