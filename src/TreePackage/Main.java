@@ -36,6 +36,7 @@ public class Main {
          System.out.print(values.next() + " - ");
    
       System.out.println("");
+      System.out.println("Pretty print of tree:");
 
       System.out.println(dict.toString());
       
@@ -54,6 +55,8 @@ public class Main {
       System.out.println("Looked up Steven's # " + ph);
 
       System.out.println("# Nodes: " + dict.getSize());
+      System.out.println("End of Dictionary Tests");
+      System.out.println("");
 
       
    }
