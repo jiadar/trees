@@ -1,6 +1,7 @@
 package TreePackage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ThreadLocalRandom;
 import java.io.*;
 
@@ -13,6 +14,9 @@ public class Main {
 
    private static void doDictionary() {
       Bictionary<String, String> dict = new Bictionary<>();
+
+      System.out.println("new dict should be empty: " + dict.isEmpty());
+
       dict.add("Ross", "111-111-1111");
       dict.add("Hunter", "222-222-2222");
       dict.add("Steven", "333-333-3333");
@@ -22,16 +26,28 @@ public class Main {
 
       System.out.println(dict.toString());
       
-      //String ph = dict.remove("Joe");
-      //System.out.println("Removed Joe's # " + ph);
+      String ph = dict.remove("Joe");
+      System.out.println("Removed Joe's # " + ph);
 
-      //System.out.println(dict.toString());
+      System.out.println(dict.toString());
 
       boolean c = dict.contains("Hunter");
       System.out.println("Dictionary contains Hunter: " + c);
-      
-      //ph = dict.getValue("Steven");
-      //System.out.println("Looked up Steven's # " + ph);
+
+      c = dict.contains("Joe");
+      System.out.println("Dictionary contains Joe: " + c);
+
+      ph = dict.getValue("Steven");
+      System.out.println("Looked up Steven's # " + ph);
+
+      System.out.println("# Nodes: " + dict.getSize());
+
+      System.out.println("Traversal: ");
+      Iterator<String> i = dict.getKeyIterator();
+      while (i.hasNext()) {
+         System.out.print(i.getNext() + " - ");
+      }
+      System.out.println();
    }
    
    private static void doRemoveTest() {

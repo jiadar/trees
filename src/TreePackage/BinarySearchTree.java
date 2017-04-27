@@ -54,8 +54,7 @@ public class BinarySearchTree<T extends Comparable<? super T>>
 	  if (rootNode != null)
 	  {
 	    T rootEntry = rootNode.getData();
-	    
-	    if (entry.equals(rootEntry))
+	    if (entry.compareTo(rootEntry) == 0) 
 	      result = rootEntry;
 	    else if (entry.compareTo(rootEntry) < 0)
 	      result = findEntry(rootNode.getLeftChild(), entry);
@@ -284,6 +283,5 @@ public class BinarySearchTree<T extends Comparable<? super T>>
       }
       return sb.toString();
    }
-
 }
 
