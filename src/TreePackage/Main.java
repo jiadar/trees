@@ -20,9 +20,16 @@ public class Main {
       dict.add("Casey", "555-555-5555");
       dict.add("Joe", "666-666-6666");
 
+      System.out.println(dict.toString());
+      
       String ph = dict.remove("Joe");
       System.out.println("Removed Joe's # " + ph);
 
+      System.out.println(dict.toString());
+
+      boolean c = dict.contains("Ross");
+      System.out.println("Dictionary contains Ross: " + c);
+      
       ph = dict.getValue("Steven");
       System.out.println("Looked up Steven's # " + ph);
    }
