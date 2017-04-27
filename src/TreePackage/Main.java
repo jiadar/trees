@@ -2,13 +2,25 @@ package TreePackage;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.io.*;
 
 public class Main {
    public static void main(String[] args) {
-      doSearch();
-      doRemoveTest();
+      doDictionary();
+      //doSearch();
+      //doRemoveTest();
    }
 
+   private static void doDictionary() {
+      Bictionary<String, String> dict = new Bictionary<>(); 
+      dict.add("Ross", "415-264-5441");
+      dict.add("Hunter", "320-331-1313");
+      dict.add("Steven", "113-323-3458");
+      dict.add("Arpun", "885-343-3313");
+      dict.add("Casey", "918-331-8574");
+      dict.add("Joe", "823-131-1173");
+   }
+   
    private static void doRemoveTest() {
       SearchTreeInterface<Integer>  btree = new BinarySearchTree<Integer>();
       btree.add(10);

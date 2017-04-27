@@ -3,8 +3,8 @@
 # User Configurable 
 DEVHOME=/Users/ross/Documents/workspace/trees
 VERBOSE=false
-BASE_CLASSES="ArrayQueue.java ArrayStack.java BinaryNode.java BinaryNodeInterface.java BinaryTree.java BinaryTreeInterface.java DequeInterface.java LinkedQueue.java LinkedStack.java QueueInterface.java SearchTreeInterface.java StackInterface.java TreeInterface.java treeIteratorInterface.java"
-CLASSES="BinarySearchTree.java Main.java"
+BASE_CLASSES="BinarySearchTree.java ArrayQueue.java ArrayStack.java BinaryNode.java BinaryNodeInterface.java BinaryTree.java BinaryTreeInterface.java DequeInterface.java LinkedQueue.java LinkedStack.java QueueInterface.java SearchTreeInterface.java StackInterface.java TreeInterface.java treeIteratorInterface.java DictionaryInterface.java"
+CLASSES="Bictionary.java Main.java"
 TESTER="Main"
 PKG="TreePackage"
 STANDALONE_TESTER=""
