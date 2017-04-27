@@ -7,9 +7,9 @@ import java.io.*;
 
 public class Main {
    public static void main(String[] args) {
+      doSearch();
       doDictionary();
-      //doSearch();
-      //doRemoveTest();
+      doRemoveTest();
    }
 
    private static void doDictionary() {
@@ -23,6 +23,19 @@ public class Main {
       dict.add("Arpun", "444-444-4444");
       dict.add("Casey", "555-555-5555");
       dict.add("Joe", "666-666-6666");
+
+      System.out.println("Key Traversal: ");
+      Iterator<String> keys = dict.getKeyIterator();
+      while (keys.hasNext())
+         System.out.print(keys.next() + " - ");   
+      System.out.println("");
+
+      System.out.println("Value Traversal: ");
+      Iterator<String> values = dict.getValueIterator();
+      while (values.hasNext())
+         System.out.print(values.next() + " - ");
+   
+      System.out.println("");
 
       System.out.println(dict.toString());
       
@@ -42,12 +55,7 @@ public class Main {
 
       System.out.println("# Nodes: " + dict.getSize());
 
-      System.out.println("Traversal: ");
-      Iterator<String> i = dict.getKeyIterator();
-      while (i.hasNext()) {
-         System.out.print(i.getNext() + " - ");
-      }
-      System.out.println();
+      
    }
    
    private static void doRemoveTest() {
