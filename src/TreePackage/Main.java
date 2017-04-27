@@ -12,13 +12,19 @@ public class Main {
    }
 
    private static void doDictionary() {
-      Bictionary<String, String> dict = new Bictionary<>(); 
-      dict.add("Ross", "415-264-5441");
-      dict.add("Hunter", "320-331-1313");
-      dict.add("Steven", "113-323-3458");
-      dict.add("Arpun", "885-343-3313");
-      dict.add("Casey", "918-331-8574");
-      dict.add("Joe", "823-131-1173");
+      Bictionary<String, String> dict = new Bictionary<>();
+      dict.add("Ross", "111-111-1111");
+      dict.add("Hunter", "222-222-2222");
+      dict.add("Steven", "333-333-3333");
+      dict.add("Arpun", "444-444-4444");
+      dict.add("Casey", "555-555-5555");
+      dict.add("Joe", "666-666-6666");
+
+      String ph = dict.remove("Joe");
+      System.out.println("Removed Joe's # " + ph);
+
+      ph = dict.getValue("Steven");
+      System.out.println("Looked up Steven's # " + ph);
    }
    
    private static void doRemoveTest() {
